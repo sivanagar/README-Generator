@@ -1,7 +1,6 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
-const generatePage = require('./utils/page-template');
 const generateMarkdown = require('./utils/generateMarkdown');
 
 //sample data
@@ -15,7 +14,7 @@ const sampleData = {
     usage: 'this is usage info',
     contribution: 'this is contribution info',
     test: 'test instructions'
-  };
+};
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -52,7 +51,7 @@ const questions = [
     //     type: 'list',
     //     name: 'license',
     //     message: 'What kind of license should your project have?',
-    //     choices: ['GNU','GPLv3', 'MIT']
+    //     choices: ['GNU','GPLv3','MIT']
     // },
     // {
     //     type: 'input',
@@ -79,12 +78,19 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    fs.writeFile ('readme.md', data, function(err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("Success!");
-    })}
+    return new Promise((resolve, reject) => {
+        fs.writeFile (`./dist/${fileName}.md`, data, function(err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve({
+                ok: true,
+                message: 'File created!'
+            });
+        });
+    })
+}
     
     
 
@@ -93,11 +99,13 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer.prompt(questions)
         .then(data => {
-            ///console.log(data)
-            return generatePage(sampleData);
+            return generateMarkdown(sampleData);
         })
-        .then (data => {
-            return writeToFile("readme.md", data)
+        .then (readme => {
+            return writeToFile("README", readme);
+        })
+        .then(writeFileResponse => {
+            console.log(writeFileResponse);
         })
         .catch(err => {
             console.log(err);
