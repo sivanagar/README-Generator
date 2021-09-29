@@ -2,18 +2,18 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown');
-
+const licenseList = require('./utils/licenseList');
 //sample data
 const sampleData = {
     github: 'sivanagar',
-    email: 'sivanagar@gmail.com',
+    email: '',
     title: 'Project Name',
     description: 'This is a description for my project.',
-    license: 'GNU',
+    license: 'GNU AGPLv3',
     installation: 'install by doing a b c',
-    usage: 'this is usage info',
-    contribution: 'this is contribution info',
-    test: 'test instructions'
+    usage: '',
+    contribution: '',
+    test: ''
 };
 
 // TODO: Create an array of questions for user input
@@ -28,51 +28,51 @@ const questions = [
         name: 'email',
         message: 'What is your email?'
     }
-    // ,
-    // {
-    //     type: 'input',
-    //     name: 'title',
-    //     message: 'What is your Project Name? (Required)',
-    //     validate: titleInput => {
-    //       if (titleInput) {
-    //         return true;
-    //       } else {
-    //         console.log('Please enter your Project Name!');
-    //         return false;
-    //       }
-    //     }
-    // },
-    // {
-    //     type: 'input',
-    //     name: 'description',
-    //     message: 'Please write a description of your project'        
-    // },
-    // {
-    //     type: 'list',
-    //     name: 'license',
-    //     message: 'What kind of license should your project have?',
-    //     choices: ['GNU','GPLv3','MIT']
-    // },
-    // {
-    //     type: 'input',
-    //     name: 'installation',
-    //     message: 'What are the steps required to install your project?'        
-    // },
-    // {
-    //     type: 'input',
-    //     name: 'usage',
-    //     message: 'Provide usage information for your project'        
-    // },
-    // {
-    //     type: 'input',
-    //     name: 'contribution',
-    //     message: 'Provide contribution guidelines for your project'        
-    // },
-    // {
-    //     type: 'input',
-    //     name: 'test',
-    //     message: 'Provide test instructions for your project'        
-    // }
+    ,
+    {
+        type: 'input',
+        name: 'title',
+        message: 'What is your Project Name? (Required)',
+        validate: titleInput => {
+          if (titleInput) {
+            return true;
+          } else {
+            console.log('Please enter your Project Name!');
+            return false;
+          }
+        }
+    },
+    {
+        type: 'input',
+        name: 'description',
+        message: 'Please write a description of your project'        
+    },
+    {
+        type: 'list',
+        name: 'license',
+        message: 'What kind of license should your project have?',
+        choices: licenseList.map((item) => `${item.name}`)
+    },
+    {
+        type: 'input',
+        name: 'installation',
+        message: 'What are the steps required to install your project?'        
+    },
+    {
+        type: 'input',
+        name: 'usage',
+        message: 'Provide usage information for your project'        
+    },
+    {
+        type: 'input',
+        name: 'contribution',
+        message: 'Provide contribution guidelines for your project'        
+    },
+    {
+        type: 'input',
+        name: 'test',
+        message: 'Provide test instructions for your project'        
+    }
 
 ];
 
@@ -99,7 +99,7 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer.prompt(questions)
         .then(data => {
-            return generateMarkdown(sampleData);
+            return generateMarkdown(data);
         })
         .then (readme => {
             return writeToFile("README", readme);

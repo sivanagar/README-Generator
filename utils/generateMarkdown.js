@@ -1,16 +1,20 @@
+const licenseList = require('./licenseList')
+
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   if (!license) {
     return '';
   } 
-  return `![badge](https://img.shields.io/badge/license-${license}-brightgreen)`
+  let licenseItem = licenseList.filter((item) => item.name===license)
+  return `![badge](${licenseItem[0].badge})`
 }
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
-  return 'license link'
+  let licenseItem = licenseList.filter((item) => item.name===license)
+  return licenseItem[0].link
 }
 
 // TODO: Create a function that returns the license section of README
@@ -19,9 +23,10 @@ function renderLicenseSection(license) {
   if (!license) {
     return '';
   } 
+  
   return `## License
 
-This application is covered by the ${license} license. `
+This application is covered by the [${license}](${renderLicenseLink(license)}) license. `
 }
 
 // TODO: Create a function to generate markdown for README
@@ -60,7 +65,7 @@ ${data.test}
 
 ## Questions
 
-:octocat: Find me on GitHub: [${data.github}](https://github.com/${data.github}) or email me at ${data.email}
+:octocat: Find me on GitHub: [${data.github}](https://github.com/${data.github}) ${data.email===''? '' : `or email me at [${data.email}](mailto:${data.email})`}
 
 `;
 }
