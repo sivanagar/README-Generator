@@ -2,7 +2,8 @@
 ![badge](https://img.shields.io/badge/license-MIT-brightgreen)
 
 ## Description  <br /> 
-A node application that creates a README.md file based on user input.
+A node.js application that creates a README.md file based on user input.
+The README output file will be generated in the dist folder.
 
 
 ## Table of Contents
@@ -16,10 +17,12 @@ A node application that creates a README.md file based on user input.
 
 
 ## Installation <br />
-npm init
+`npm init`
 
 ## Usage <br />
-To start using this application just type 'node index' in command line.
+To start using this application just type 
+`node index` 
+in command line.
 
 ## License
 
@@ -34,5 +37,5 @@ This application is covered by the [MIT License](https://choosealicense.com/lice
 
 ## Questions
 
-:octocat: Find me on GitHub: [sivangar](https://github.com/sivangar) or email me at [email@email.com](mailto:email@email.com)
+:octocat: Find me on GitHub: [sivangar](https://github.com/sivangar) 
 
