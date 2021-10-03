@@ -24,6 +24,8 @@ To start using this application just type
 `node index` 
 in command line.
 
+![README Generator](./utils/README%20Generator%20use%20%E2%80%90%20Made%20with%20Clipchamp.gif)
+
 ## License
 
 This application is covered by the [MIT License](https://choosealicense.com/licenses/mit/) license. 
