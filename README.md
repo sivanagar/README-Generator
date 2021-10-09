@@ -17,7 +17,7 @@ The README output file will be generated in the dist folder.
 
 
 ## Installation <br />
-`npm init`
+`npm install`
 
 ## Usage <br />
 To start using this application just type 
